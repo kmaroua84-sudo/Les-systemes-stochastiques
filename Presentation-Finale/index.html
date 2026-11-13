@@ -1,128 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Percolation — Systèmes stochastiques</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css">
-  <style>
-    :root { --mint:#67f0c0; --blue:#72b7ff; --ink:#081323; --muted:#b7c7dc; }
-    body { background: radial-gradient(circle at 80% 10%, #173b5d 0, #0a1b30 38%, #06101d 100%); }
-    .reveal { color:#f4f8ff; font-family: Inter, system-ui, sans-serif; }
-    .reveal h1,.reveal h2,.reveal h3 { text-transform:none; letter-spacing:-.035em; color:#fff; }
-    .reveal h1 { font-size:2.25em; }
-    .reveal h2 { font-size:1.55em; }
-    .reveal p,.reveal li { color:var(--muted); font-size:.72em; line-height:1.5; }
-    .accent { color:var(--mint); }
-    .eyebrow { color:var(--blue); text-transform:uppercase; letter-spacing:.18em; font-size:.45em!important; font-weight:800; }
-    .panel { background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.13); border-radius:22px; padding:24px 28px; box-shadow:0 20px 70px #0004; }
-    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:center; }
-    .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .metric { font-size:1.8em; font-weight:850; color:var(--mint); }
-    .tag { display:inline-block; border:1px solid #67f0c066; color:var(--mint); border-radius:999px; padding:7px 14px; font-size:.48em; margin:4px; }
-    .cellgrid { display:grid; grid-template-columns:repeat(10,1fr); gap:4px; max-width:390px; margin:auto; }
-    .cell { aspect-ratio:1; border-radius:5px; background:#20354c; }
-    .cell.open { background:#67f0c0; box-shadow:0 0 10px #67f0c055; }
-    .cell.path { background:#ffcf6e; box-shadow:0 0 14px #ffcf6e88; }
-    .bigquote { font-size:1.2em!important; color:white!important; font-weight:650; }
-    .small { font-size:.48em!important; }
-    iframe { width:100%; height:560px; border:0; border-radius:18px; background:#fff; }
-    .reveal a { color:var(--mint); }
-    .progress { color:var(--mint); }
-    @media(max-width:700px){ .grid2,.grid3{grid-template-columns:1fr;} iframe{height:520px;} }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les systèmes stochastiques</title>
+<meta http-equiv="refresh" content="0; url=Partie-1-Definition-editable.html">
 </head>
 <body>
-<div class="reveal">
-<div class="slides">
-  <section data-background-gradient="linear-gradient(135deg,#071321,#123858)">
-    <p class="eyebrow">THÉMATIQUE · SYSTÈMES STOCHASTIQUES</p>
-    <h1>Le modèle de<br><span class="accent">percolation</span></h1>
-    <p class="bigquote">Comment une connexion apparaît-elle dans un milieu aléatoire ?</p>
-    <div style="margin-top:34px"><span class="tag">Simulation 10 × 10</span><span class="tag">Probabilité p</span><span class="tag">Python interactif</span></div>
-    <p class="small" style="margin-top:42px">Réalisé par : [Noms des 5 étudiantes] · [Université] · [Année universitaire]</p>
-  </section>
-
-  <section>
-    <p class="eyebrow">01 · L’IDÉE</p><h2>Un phénomène simple… aux conséquences étonnantes</h2>
-    <div class="grid2">
-      <div class="panel">
-        <p class="bigquote">Imaginez un matériau composé de petits sites, certains ouverts et d’autres bloqués.</p>
-        <p>Une substance peut-elle traverser le matériau de haut en bas ? Tout dépend de la disposition des sites ouverts.</p>
-      </div>
-      <div class="panel">
-        <div class="cellgrid" id="demoGrid"></div>
-        <p class="small" style="text-align:center">Exemple illustratif d’un réseau 10 × 10</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <p class="eyebrow">02 · MODÉLISATION</p><h2>Comment construit-on le réseau ?</h2>
-    <div class="grid3">
-      <div class="panel"><div class="metric">10 × 10</div><p>Un réseau carré de 100 sites.</p></div>
-      <div class="panel"><div class="metric">p</div><p>Probabilité qu’un site soit ouvert.</p></div>
-      <div class="panel"><div class="metric">1 − p</div><p>Probabilité qu’un site soit fermé.</p></div>
-    </div>
-    <p class="fragment" style="margin-top:28px">Chaque site est choisi aléatoirement, indépendamment des autres.</p>
-  </section>
-
-  <section>
-    <p class="eyebrow">03 · CONNECTIVITÉ</p><h2>Quand dit-on qu’il y a percolation ?</h2>
-    <div class="grid2">
-      <div class="panel">
-        <p class="bigquote">Il existe un chemin continu de sites ouverts reliant le bord supérieur au bord inférieur.</p>
-        <p>Dans notre simulation, deux sites sont voisins s’ils partagent un côté (haut, bas, gauche ou droite).</p>
-      </div>
-      <div class="panel">
-        <div class="cellgrid" id="pathGrid"></div>
-        <p class="small" style="text-align:center">Jaune : chemin connecté · Vert : site ouvert</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <p class="eyebrow">04 · EXPÉRIMENTATION EN DIRECT</p><h2>À vous de jouer : modifiez <span class="accent">p</span></h2>
-    <p>Changez la probabilité, lancez une simulation et observez si un chemin traversant apparaît.</p>
-    <div class="panel">
-      <!-- Après déploiement de Streamlit, remplacez l'URL ci-dessous par l'URL de votre application. -->
-      <iframe src="https://percolation-demo.streamlit.app/?embed=true" title="Simulation interactive de percolation"></iframe>
-      <p class="small">Si la simulation ne s’affiche pas encore, déployez d’abord le dossier simulation sur Streamlit Community Cloud puis remplacez l’adresse de l’iframe.</p>
-    </div>
-  </section>
-
-  <section>
-    <p class="eyebrow">05 · ANALYSE</p><h2>Que se passe-t-il lorsque p augmente ?</h2>
-    <div class="grid3">
-      <div class="panel"><h3 class="accent">p faible</h3><p>Peu de sites ouverts : traversée généralement difficile.</p></div>
-      <div class="panel"><h3 class="accent">p moyen</h3><p>Des amas se forment ; le résultat varie fortement d’un essai à l’autre.</p></div>
-      <div class="panel"><h3 class="accent">p élevé</h3><p>Les chemins continus deviennent plus probables.</p></div>
-    </div>
-    <p class="fragment">Une seule simulation ne suffit pas : il faut répéter l’expérience pour estimer la fréquence de percolation.</p>
-  </section>
-
-  <section>
-    <p class="eyebrow">06 · CONCLUSION</p><h2>Le hasard peut créer une connexion globale</h2>
-    <p class="bigquote">La percolation relie une règle locale aléatoire à une propriété globale du réseau : sa capacité à être traversé.</p>
-    <div class="panel" style="margin-top:24px"><p>Merci pour votre attention</p><span class="tag">Questions ?</span></div>
-  </section>
-</div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
-<script>
-  Reveal.initialize({ hash:true, slideNumber:'c/t', transition:'fade', backgroundTransition:'zoom',
-    controls:true, progress:true, center:true, width:1280, height:720, margin:0.06 });
-  function draw(id, seed, pathMode=false) {
-    const el=document.getElementById(id); if(!el) return;
-    let s=seed; const rnd=()=>{s=(s*9301+49297)%233280;return s/233280;};
-    const path=new Set([4,14,24,34,44,54,64,74,84,94]);
-    for(let i=0;i<100;i++){const d=document.createElement('div');d.className='cell';
-      if(rnd()>.42)d.classList.add('open');
-      if(pathMode&&path.has(i))d.className='cell path';
-      el.appendChild(d);}
-  }
-  draw('demoGrid',17); draw('pathGrid',33,true);
-</script>
+<p>Ouverture de la présentation...</p>
+<a href="Partie-1-Definition-editable.html">Ouvrir la présentation</a>
 </body>
 </html>
