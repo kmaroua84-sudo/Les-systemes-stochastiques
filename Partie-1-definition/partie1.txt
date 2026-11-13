@@ -1,0 +1,484 @@
+     1 ‫جامعة سعد دحلب – البليدة‬
+Université Saad Dahleb – Blida 1
+
+
+
+
+        PROJET
+            THÈME
+
+   Les systèmes
+   stochastiques
+          Encadré par :
+
+      Dr EL moussaoui
+
+       Année universitaire :
+          2026\2027
+                                   1
+             Kalafat
+             maroua
+
+Drichi                  Slimani
+hadil        Réalisé     rania
+
+              par
+    Guidji         Bouhafs
+     lyna            aya
+                                  2
+Étude des systèmes
+stochastiques et du
+modèle de percolation
+
+
+Présentation universitaire • 2026-2027
+
+
+
+
+                                         3
+                       1-Introduction+Définition
+
+
+                       2-Exemples + Probabilités
+
+
+Plan de travail      3-Introduction à la Percolation
+
+
+                      4-Modélisation+algorithmes
+
+
+                  5-Simulation + Résultats + Conclusion
+                                                          4
+Quand le hasard devient système
+           Une évolution incertaine, mais gouvernée par des lois.
+
+
+Introduction :
+
+Dans de nombreux domaines scientifiques et techniques, les
+systèmes étudiés évoluent dans des conditions où l'incertitude joue
+un rôle essentiel.
+En effet, certains phénomènes ne suivent pas une évolution
+parfaitement prévisible. Leur comportement peut être influencé par
+des événements aléatoires qui rendent leur étude plus complexe.
+                                   xxxc
+Pour représenter et analyser ces phénomènes,      les mathématiques
+font appel aux systèmes stochastiques.
+Ces systèmes permettent de modéliser l'évolution des phénomènes
+aléatoires dans le temps, en utilisant les outils de la théorie des
+probabilités et des statistiques.
+Ils trouvent des applications dans plusieurs domaines, notamment
+les télécommunications, l'économie, la physique et la recherche
+opérationnelle.
+                                                                      5
+Le langage mathématique de l’aléatoire
+                                          Évolution d'un système stochastique
+           Définition :                            au cours du temps
+                                                10
+
+
+Un système stochastique est un système
+  dont l'évolution dépend de variables          8
+
+    aléatoires et comporte une part
+              d'incertitude.                    6
+ Son comportement ne peut pas être
+
+
+
+
+                                         X(t)
+  entièrement déterminé à l'avance,             4
+même lorsque les conditions initiales
+             sont connues.
+L'objectif de son étude n'est donc pas          2
+
+
+  uniquement de prévoir un résultat
+    précis, mais aussi d'analyser les           0
+                                                     1   2   3   4   5       6   7   8   9   10
+  différentes évolutions possibles du                                    t
+
+   système à l'aide des probabilités
+                                                                                                  6
+Deux approches de modélisation
+
+
+ 1. Système déterministe                               2. Système stochastique
+
+Un système déterministe possède une évolution         Un système stochastique comporte une composante
+entièrement définie par ses conditions initiales et   aléatoire dans son évolution.
+ses règles de fonctionnement.                         Même avec les mêmes conditions initiales, plusieurs
+Pour les mêmes conditions initiales, on obtient la    évolutions sont possibles.
+même évolution.                                       Exemple : le nombre de clients arrivant dans une file
+Exemple : le mouvement idéal d'un objet soumis à      d'attente pendant une période donnée.
+une force connue.
+
+
+
+
+                                                                                                              7
+Caractéristiques des systèmes stochastiques
+
+Les systèmes stochastiques possèdent plusieurs
+propriétés fondamentales :
+1. L'incertitude
+Le comportement futur du système n'est pas
+connu avec certitude.
+2. L'évolution temporelle
+L'état du système peut changer au cours du
+temps.
+3. La variabilité
+Plusieurs réalisations différentes peuvent être
+observées dans les mêmes conditions.
+4. Les propriétés statistiques
+L'étude du système repose sur des outils
+statistiques et probabilistes, notamment :
+   L'espérance mathématique.
+   La variance.
+   Les probabilités des différents événements.
+
+                                                  8
+  Exemple illustratif
+                                                             Pour observer l’évolution du phénomène aléatoire, considérons
+                                                                     maintenant six lancers successifs de la pièce :
+Exemple : Lancer d'une pièce équilibrée
+Considérons une pièce équilibrée lancée plusieurs fois.                      Trajectoire d’un processus stochastique (série de six lancers)
+
+
+Chaque lancer peut donner deux résultats :                         1,0
+
+
+
+
+Pile avec une probabilité de 1/2.
+Face avec une probabilité de 1/2.                                  0,8
+
+
+
+
+Le résultat de chaque lancer est incertain, même si les            0,6
+
+
+
+
+probabilités sont connues.
+
+
+
+
+                                                               n
+On peut représenter cette expérience par une variable              0,4
+
+
+
+
+aléatoire :
+X = 1 si le résultat est Pile.                                     0,2
+
+
+
+
+X = 0 si le résultat est Face.
+Ainsi :                                                             0
+                                                                         1       2                  3
+                                                                                                              n
+                                                                                                                       4                  5   6
+
+
+
+
+E(X) = 1/2
+V(X) = 1/4
+                                                          Ce graphique représente une trajectoire possible du processus
+                                                           stochastique. On observe que le résultat varie aléatoirement
+                                                          entre 0 (Face) et 1 (Pile) à chaque lancer. Cette variation illustre
+                                                               le caractère imprévisible d’un phénomène aléatoire.
+   Cet exemple montre que, même si le résultat
+  individuel est imprévisible, certaines propriétés
+                                                                                                                                                  9
+statistiques du phénomène peuvent être calculées.
+10
+11
+12
+13
+14
+   1.Introduction à la percolation
+La percolation est un phénomène probabiliste qui
+permet d'étudier la propagation d'un fluide dans
+un milieu désordonné. Elle décrit comment un
+fluide comme l'eau, l'électricité ou un agent
+infectieux peut traverser un réseau constitué de
+cellules ouvertes et bloquées. Ce modèle permet
+de déterminer si un chemin continu existe entre
+deux régions du réseau.
+
+                                                   15
+   2.Définition de la percolation
+La percolation est un modèle mathématique
+probabiliste basé sur un réseau de cellules dont l'état
+est déterminé aléatoirement. Chaque cellule peut être :
+Ouverte : permet le passage de l'eau.
+Bloquée : empêche le passage de l'eau.
+Chaque cellule est ouverte avec une probabilité (P) et
+bloquée avec une probabilité (1-P).
+
+
+
+                                                          16
+3.Principe
+Le modéle de percolation repose sur les étapes suivantes :
+
+
+
+             1                               2                                 3
+Construction du réseau          Identification des                 Détection du chemin de
+et probabilisation              connexions                         percolation
+Construire une grille        Identifier les cellules ouvertes.     Vérifier l'existence d'un chemin continu.
+composée de cellules.        Déterminer les cellules ouvertes et   Déterminer si l'eau peut se propager de
+Définir une probabilité      connectées entre elles.               l'entrée jusqu'à la sortie du réseau.
+d'ouverture .
+Attribuer aléatoirement un
+état ouvert ou bloqué à
+chaque cellule.
+
+
+
+
+                                                                                                               17
+ 4.Explication
+ Cette figure représente un exemple de percolation
+verticale dans un réseau de sites.
+On distingue trois catégories de cellules : les cellules
+bleues, les cellules blanches et les cellules noires.
+Les cellules noires représentent les sites bloqués, tandis
+que les cellules blanches représentent les sites ouverts
+qui ne participent pas nécessairement au chemin de
+percolation.
+Les cellules bleues représentent les sites ouverts
+connectés entre eux, formant un chemin continu du bas
+vers le haut du réseau.
+Ainsi, on dit que le réseau percole verticalement, car il
+existe un chemin connecté qui permet de traverser le
+réseau de bas en haut.
+
+
+                                                             18
+5.Remarque
+Ce qui est important dans la percolation, ce n'est
+pas
+seulement le nombre de cellules ouvertes, mais
+surtout
+leur connectivité, car c'est elle qui permet la
+formation
+d'un chemin continu à travers le réseau.
+Idée principale
+Un grand nombre de cellules ouvertes ne suffit pas.
+                                                           Chemin interrompu Chemin continu
+Elles doivent être reliées pour laisser passer le fluide   → Pas de percolation→Percolation possible
+d’un côté à l’autre du réseau
+                                                                                                19
+Modélisation de phénomène de percolation
+objectif : étudie si un chemin continu permet de traverser un milieu poreux,de haut en bas
+
+
+ La percolation est un modéle mathématique utilisé pour étudier la
+     connectivité et la propagation dans un milieu désordonné
+
+
+    Notre milieu : une grille carée de 10 x 10 cellules
+
+ État de chaque cellule :
+ • 1 — ouverte : la cellule est perméable.
+ • 0 — bloquée : la cellule est imperméable.
+
+
+
+
+ Question étudiée : existe-t-il un chemin de cellules ouvertes reliant la
+                 premiére ligne à la derniére ligne ?                                        20
+ Modèle mathématique et représentation
+Chaque cellule reçoit indépendamment un état aléatoire selon une loi de Bernoulli.
+
+
+
+             Variable aléatoire de Bernoulli :                                  Représentation matricielle :
+
+                   Xij = 1 avec probabilité p                                              M = (Xij) 1≤i,j≤10
+
+                                                                   La matrice binaire M décrit la configuration complète du réseau.
+                  Xij = 0 avec probabilité 1 − p
+
+
+
+
+  Paramètres du modèle
+                                                                                   Indépendance
+         N = 10                        p                      1−p                  Les états des cellules
+   Dimension de la grille    Probabilité d’ouverture   Probabilité de blocage              sont
+                                                                                      indépendants
+
+                                                                                                                                21
+  Voisinage et condition de percolation
+La connectivité est définie à partir du voisinage à quatre directions, appelé voisinage de Von Neumann
+
+
+
+
+              Haut                              Condition de percolation
+                                                Il y a percolation s’il existe au moins un chemin constitué uniquement de cellules
+                                                ouvertes reliant la première ligne à la dernière ligne
+
+
+Gauche
+             cellule
+                           Droite
+                                                Important : les déplacements diagonaux ne sont pas autorisés.
+            centrale
+
+
+
+               Bas
+
+
+
+
+                                                                                                                             22
+  Algorithme de détection : BFS
+BFS (Breadth-First Search), ou parcours en largeur, explore les cellules accessibles à partir de la première ligne.
+
+
+
+
+ Organigramme simplifié
+                                                                      Sinon : continuer le BFS
+
+        Générer la                 Initialiser la             Extraire une                   Ligne 10                 File vide ?
+           grille                       file                     cellule                    atteinte ?                  Pas de
+          10 × 10                 avec la ligne 1            et explorer ses               Percolation                percolation
+                                                                 voisins
+
+
+
+
+                                                                                                                                    23
+Implémentation en Python
+Le programme génère une grille 10 × 10 pour chaque probabilité p, applique BFS.
+
+
+
+
+                                                                           Fonctionnement du programme Python
+Voici le programme interactif en Python:                              Le programme permet de simuler le phénomène de
+                                                                  percolation sur une grille carrée de dimension 10 x 10 , en
+                                                                         utilisant différentes valeurs de probabilité P .
+                                                                 1. Initialisation de la grille : création d'une grille 10 x 10 , où
+                                                                      chaque cellule représente un site du milieu poreux.
+                                                                   2. Génération aléatoire : chaque cellule devient occupée
+                                                                  avec une probabilité P , ou vide avec une probabilité 1-P .
+                                                                  3. Application de l'algorithme BFS : l'algorithme Breadth-
+                                                                     First Search (parcours en largeur) explore les cellules
+                                                                 voisines afin de rechercher un chemin continu entre le haut
+                                                                                       et le bas de la grille.
+                                                                   4. Détection de la percolation : le programme vérifie s'il
+                                                                 existe un chemin connecté permettant le passage à travers
+                                                                                               la grille.
+                                                                   5. Représentation graphique : les résultats sont affichés
+                                                                    pour quatre valeurs de probabilité : P= 0.2 , 0.5 , 0.7 , 1 24.
+       Simulation numérique
+Pourquoi faire une simulation?
+   L’objectif de cette simulation est d’étudier l’influence de la probabilité d’ouverture des cellules sur
+                            la propagation d’un liquide dans un milieu poreux.
+   Nous cherchons à déterminer si un chemin continu de cellules ouvertes existe entre le haut et le
+                                         bas d’une grille de 10 × 10.
+       Pour cela, nous allons modifier la probabilité d’ouverture et observer son influence sur la
+                                      possibilité de traverser la grille
+
+Comment faire la simulation?
+                       La simulation est réalisée à l’aide du langage Python.
+Le programme commence par créer une grille de 10 × 10 cellules. Chaque cellule est générée
+                                 aléatoirement selon la probabilité .
+   Ensuite, il recherche les chemins continus en partant des cellules ouvertes de la première
+ligne. Il explore les cellules voisines ouvertes dans les quatre directions : haut, bas, gauche et
+                                                droite.
+Si au moins une cellule de la dernière ligne est atteinte, la percolation est considérée comme
+              réussie. Sinon, elle est considérée comme impossible pour cette grille.
+Cette expérience est répétée 10 000 fois pour chaque valeur de P afin d’obtenir des résultats                25
+
+                       plus fiable et d’observer l’évolution de la percolation                                    25
+ Les paramétres de la                La repésentation des
+ simulation                          résultats
+
+                               Les résultats obtenus sont présentés dans le tableau
+dimenion de la grille:10*10    suivant :
+nombre total de cellules:100   F(p)=Nombre de simulations réussies x100
+
+probabilités                                   Nombre total de simulation
+
+étudiées:0,2;0,5;0,7;1                                Simulations
+                                     Probabilité p                          Fréquence
+                                                        réussies
+Nombre de répétition:10000
+cellule ouverte:1
+                                0,2                       0                         0%
+cellule bloquée:0
+connexions:4directions         0,5                          1716                 17,16 %
+
+                                    0,7                       9129              91,29 %
+
+                                1                       10000                     100 %
+                                                                                   26
+                                                                                        26
+représentation graphique des
+résultats
+
+
+
+
+                               On observe une augmentation de la
+                               fréquence de percolation lorsque la
+                               probabilité d’ouverture des cellules
+                                           augmente.
+
+
+
+
+                                                               27
+                                                                      27
+Bilan général
+     La probabilité de percolation augmente avec la probabilité d’ouverture des cellules.
+        Cette augmentation n’est pas linéaire.
+        Les connexions entre les cellules jouent un rôle essentiel.                         28
+        L’organisation spatiale influence la propagation                                         28
+            Conclusion
+                                                       Nous avons également constaté que les résultats
+À travers cette simulation, nous avons étudié le
+                                                       peuvent varier d’une simulation à une autre, même
+modèle de percolation à l’aide d’une grille de 10 ×
+                                                       lorsque les paramètres restent identiques. Cela illustre le
+10 cases.
+                                                       caractère aléatoire des systèmes stochastiques.
+Chaque case est ouverte avec une probabilité p et
+bloquée avec une probabilité 1-p. La propagation a     En conclusion, le modèle de percolation permet de
+été simulée afin de vérifier l’existence d’un chemin   comprendre comment un phénomène peut se propager
+continu entre le haut et le bas de la grille.
+                                                       dans un environnement aléatoire et comment les
+                                                       probabilités influencent son évolution..
+Les résultats montrent que la probabilité p joue un
+rôle important dans la propagation. Lorsque p
+augmente, le nombre de cases ouvertes augmente
+également, ce qui favorise la formation de chemins
+continus. À l’inverse, lorsque p diminue, les cases
+bloquées deviennent plus nombreuses et limitent
+la propagation.                                                                                             29
+                                                                                                                 29
+Merci pour
+votre attention
+
+
+
+
+                  30
+
