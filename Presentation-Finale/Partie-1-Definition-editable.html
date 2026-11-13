@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étude des systèmes stochastiques et du modèle de percolation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
+<style>
+:root{--ink:#17233b;--muted:#5b6780;--violet:#5142a5;--violet2:#7768c9;--gold:#d5a642;--pale:#f2f0fb;--line:#e4e1f0}
+.reveal{font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+.reveal .slides{text-align:left}
+.reveal .slides section{box-sizing:border-box;padding:22px 34px}
+.reveal h1,.reveal h2,.reveal h3{color:var(--ink);text-transform:none;letter-spacing:-.025em}
+.reveal h1{font-size:2.05em;line-height:1.12}
+.reveal h2{font-size:1.48em;margin:0 0 .45em;border-bottom:3px solid var(--gold);padding-bottom:.22em}
+.reveal h3{font-size:1.02em;color:var(--violet)}
+.reveal p,.reveal li{font-size:.68em;line-height:1.42}
+.reveal ul,.reveal ol{margin-top:.25em}
+.kicker{font-size:.48em!important;text-transform:uppercase;letter-spacing:.16em;color:var(--violet);font-weight:bold}
+.subtitle{font-size:.82em!important;color:var(--muted)}
+.tag{display:inline-block;background:var(--pale);color:var(--violet);padding:.35em .7em;border-radius:999px;font-size:.48em;margin:.2em}
+.card{background:#f7f6fc;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:10px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.big{font-size:1.2em!important;font-weight:bold;color:var(--violet)}
+.small{font-size:.52em!important;color:var(--muted)}
+.reveal table{font-size:.55em;width:100%;border-collapse:collapse}
+.reveal th{background:var(--pale);color:var(--ink)}
+.reveal td,.reveal th{border:1px solid var(--line);padding:9px}
+.reveal .controls{color:var(--violet)}
+.reveal .progress{color:var(--gold)}
+.cover{background:linear-gradient(135deg,#f7f5ff,#fff 65%)}
+.cover:before{content:"";display:block;width:90px;height:7px;background:var(--gold);border-radius:10px;margin:10px 0 28px}
+.num{position:absolute;right:28px;bottom:12px;color:#9299aa;font-size:.42em}
+.math{font-family:Georgia,serif;background:#f7f6fc;border-radius:12px;padding:12px;text-align:center;font-size:.85em}
+.flow{display:flex;align-items:stretch;gap:9px}
+.flow>div{flex:1;background:var(--pale);padding:12px;border-radius:12px;text-align:center;font-size:.58em}
+.flow b{display:block;color:var(--violet);font-size:1.15em;margin-bottom:6px}
+.network{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;max-width:390px;margin:auto}
+.cell{aspect-ratio:1;border-radius:4px;background:#d8dbe3}
+.cell.open{background:#fff;border:1px solid #aab1c0}
+.cell.path{background:#4d9fd2}
+.cell.blocked{background:#252b38}
+@media(max-width:700px){.reveal .slides section{padding:12px}.grid2,.grid3{grid-template-columns:1fr}.flow{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<section class="cover" data-background-color="#fbfaff">
+<p class="kicker">Université Saad Dahleb – Blida 1</p>
+<h1>Les systèmes<br>stochastiques</h1>
+<p class="subtitle">Étude des systèmes stochastiques et du modèle de percolation</p>
+<div style="margin-top:34px">
+<p><b>Projet universitaire</b></p>
+<p>Encadré par : Dr EL Moussaoui</p>
+<p>Année universitaire : 2026–2027</p>
+</div><span class="num">1</span>
+</section>
+
+<section>
+<p class="kicker">Présentation du groupe</p><h2>Réalisé par</h2>
+<div class="grid3">
+<div class="card"><h3>Kalafat</h3><p>Maroua</p></div>
+<div class="card"><h3>Drichi</h3><p>Hadil</p></div>
+<div class="card"><h3>Slimani</h3><p>Rania</p></div>
+<div class="card"><h3>Guidji</h3><p>Lyna</p></div>
+<div class="card"><h3>Bouhafs</h3><p>Aya</p></div>
+</div><span class="num">2</span>
+</section>
+
+<section class="cover">
+<p class="kicker">Étude universitaire</p><h1>Étude des systèmes stochastiques et du modèle de percolation</h1>
+<p class="subtitle">Présentation universitaire • 2026–2027</p><span class="num">3</span>
+</section>
+
+<section>
+<h2>Plan de travail</h2>
+<div class="grid2">
+<div class="card"><h3>01</h3><p>Introduction et définition</p></div>
+<div class="card"><h3>02</h3><p>Exemples et probabilités</p></div>
+<div class="card"><h3>03</h3><p>Introduction à la percolation</p></div>
+<div class="card"><h3>04</h3><p>Modélisation et algorithmes</p></div>
+<div class="card"><h3>05</h3><p>Simulation, résultats et conclusion</p></div>
+</div><span class="num">4</span>
+</section>
+
+<section>
+<p class="kicker">Introduction</p><h2>Quand le hasard devient système</h2>
+<p class="subtitle">Une évolution incertaine, mais gouvernée par des lois.</p>
+<p>Dans de nombreux domaines scientifiques et techniques, les systèmes étudiés évoluent dans des conditions où l’incertitude joue un rôle essentiel.</p>
+<p>Certains phénomènes ne suivent pas une évolution parfaitement prévisible. Leur comportement peut être influencé par des événements aléatoires qui rendent leur étude plus complexe.</p>
+<p>Pour représenter et analyser ces phénomènes, les mathématiques font appel aux systèmes stochastiques.</p>
+<p>Ils permettent de modéliser l’évolution des phénomènes aléatoires dans le temps, à l’aide de la théorie des probabilités et des statistiques.</p>
+<p class="small">Applications : télécommunications, économie, physique et recherche opérationnelle.</p><span class="num">5</span>
+</section>
+
+<section>
+<h2>Définition d’un système stochastique</h2>
+<div class="grid2">
+<div class="card"><p class="big">Un système stochastique</p><p>est un système dont l’évolution dépend de variables aléatoires et comporte une part d’incertitude.</p></div>
+<div class="card"><h3>Conséquence</h3><p>Son comportement ne peut pas être entièrement déterminé à l’avance, même lorsque les conditions initiales sont connues.</p></div>
+</div>
+<p>L’objectif est d’analyser les différentes évolutions possibles du système à l’aide des probabilités, et non uniquement de prévoir un résultat précis.</p>
+<span class="num">6</span>
+</section>
+
+<section>
+<h2>Deux approches de modélisation</h2>
+<div class="grid2">
+<div class="card"><h3>1. Système déterministe</h3><p>Son évolution est entièrement définie par les conditions initiales et les règles de fonctionnement.</p><p>Pour les mêmes conditions initiales, on obtient la même évolution.</p><p><b>Exemple :</b> mouvement idéal d’un objet soumis à une force connue.</p></div>
+<div class="card"><h3>2. Système stochastique</h3><p>Il comporte une composante aléatoire dans son évolution.</p><p>Même avec les mêmes conditions initiales, plusieurs évolutions sont possibles.</p><p><b>Exemple :</b> nombre de clients arrivant dans une file d’attente pendant une période donnée.</p></div>
+</div><span class="num">7</span>
+</section>
+
+<section>
+<h2>Caractéristiques des systèmes stochastiques</h2>
+<div class="grid2">
+<div class="card"><h3>1. Incertitude</h3><p>Le comportement futur du système n’est pas connu avec certitude.</p></div>
+<div class="card"><h3>2. Évolution temporelle</h3><p>L’état du système peut changer au cours du temps.</p></div>
+<div class="card"><h3>3. Variabilité</h3><p>Plusieurs réalisations différentes peuvent être observées dans les mêmes conditions.</p></div>
+<div class="card"><h3>4. Propriétés statistiques</h3><p>L’étude repose notamment sur l’espérance mathématique, la variance et les probabilités des événements.</p></div>
+</div><span class="num">8</span>
+</section>
+
+<section>
+<h2>Exemple : lancer d’une pièce équilibrée</h2>
+<div class="grid2">
+<div>
+<p>Considérons une pièce équilibrée lancée plusieurs fois.</p>
+<ul><li>Pile avec une probabilité de 1/2.</li><li>Face avec une probabilité de 1/2.</li></ul>
+<p>Le résultat de chaque lancer est incertain, même si les probabilités sont connues.</p>
+<div class="math">X = 1 si Pile<br>X = 0 si Face</div>
+</div>
+<div class="card">
+<h3>Propriétés statistiques</h3>
+<p class="math">E(X) = 1/2</p>
+<p class="math">V(X) = 1/4</p>
+<p class="small">La trajectoire observée varie aléatoirement entre 0 (Face) et 1 (Pile) à chaque lancer.</p>
+</div>
+</div>
+<p>Cette expérience montre que, même si le résultat individuel est imprévisible, certaines propriétés statistiques peuvent être calculées.</p><span class="num">9</span>
+</section>
+
+<section>
+<p class="kicker">Deuxième partie du thème</p><h2>Introduction à la percolation</h2>
+<p>La percolation est un phénomène probabiliste qui permet d’étudier la propagation d’un fluide dans un milieu désordonné.</p>
+<p>Elle décrit comment un fluide — comme l’eau, l’électricité ou un agent infectieux — peut traverser un réseau constitué de cellules ouvertes et bloquées.</p>
+<p class="big">Question centrale : existe-t-il un chemin continu entre deux régions du réseau ?</p><span class="num">15</span>
+</section>
+
+<section>
+<h2>Définition de la percolation</h2>
+<p>La percolation est un modèle mathématique probabiliste basé sur un réseau de cellules dont l’état est déterminé aléatoirement.</p>
+<div class="grid2">
+<div class="card"><h3>Cellule ouverte</h3><p>Permet le passage de l’eau.</p><p class="big">Probabilité : p</p></div>
+<div class="card"><h3>Cellule bloquée</h3><p>Empêche le passage de l’eau.</p><p class="big">Probabilité : 1 − p</p></div>
+</div><span class="num">16</span>
+</section>
+
+<section>
+<h2>Principe du modèle de percolation</h2>
+<div class="flow">
+<div><b>1</b><strong>Construction du réseau</strong><p>Construire une grille composée de cellules et définir une probabilité d’ouverture.</p></div>
+<div><b>2</b><strong>Identification des connexions</strong><p>Identifier les cellules ouvertes et déterminer celles qui sont connectées.</p></div>
+<div><b>3</b><strong>Détection du chemin</strong><p>Vérifier s’il existe un chemin continu de l’entrée à la sortie.</p></div>
+</div><span class="num">17</span>
+</section>
+
+<section>
+<h2>Explication du chemin de percolation</h2>
+<p>Dans un réseau de sites, on distingue trois catégories de cellules :</p>
+<div class="grid3">
+<div class="card"><div style="height:28px;background:#252b38;border-radius:5px"></div><h3>Sites bloqués</h3><p>Empêchent le passage.</p></div>
+<div class="card"><div style="height:28px;background:#fff;border:1px solid #aaa;border-radius:5px"></div><h3>Sites ouverts</h3><p>Ouverts, mais pas nécessairement sur le chemin.</p></div>
+<div class="card"><div style="height:28px;background:#4d9fd2;border-radius:5px"></div><h3>Chemin connecté</h3><p>Sites ouverts reliés du bas vers le haut.</p></div>
+</div>
+<p>Le réseau percole verticalement lorsqu’il existe un chemin connecté qui traverse le réseau de bas en haut.</p><span class="num">18</span>
+</section>
+
+<section>
+<h2>Remarque : l’importance de la connectivité</h2>
+<p>Ce qui est important dans la percolation, ce n’est pas seulement le nombre de cellules ouvertes, mais surtout leur connectivité.</p>
+<div class="grid2">
+<div class="card"><h3>Chemin interrompu</h3><div class="network" id="broken"></div><p class="big">Pas de percolation</p></div>
+<div class="card"><h3>Chemin continu</h3><div class="network" id="continuous"></div><p class="big">Percolation possible</p></div>
+</div><p class="small">Les cellules ouvertes doivent être reliées pour laisser passer le fluide d’un côté à l’autre du réseau.</p><span class="num">19</span>
+</section>
+
+<section>
+<h2>Modélisation du phénomène de percolation</h2>
+<p><b>Objectif :</b> étudier si un chemin continu permet de traverser un milieu poreux, de haut en bas.</p>
+<div class="card">
+<p><b>Milieu étudié :</b> grille carrée de 10 × 10 cellules.</p>
+<p><b>État de chaque cellule :</b></p>
+<ul><li>1 — ouverte : la cellule est perméable.</li><li>0 — bloquée : la cellule est imperméable.</li></ul>
+<p><b>Question :</b> existe-t-il un chemin de cellules ouvertes reliant la première ligne à la dernière ligne ?</p>
+</div><span class="num">20</span>
+</section>
+
+<section>
+<h2>Modèle mathématique et représentation</h2>
+<p>Chaque cellule reçoit indépendamment un état aléatoire selon une loi de Bernoulli.</p>
+<div class="grid2">
+<div class="card"><h3>Variable de Bernoulli</h3><div class="math">Xᵢⱼ = 1 avec probabilité p<br>Xᵢⱼ = 0 avec probabilité 1 − p</div></div>
+<div class="card"><h3>Représentation matricielle</h3><div class="math">M = (Xᵢⱼ), 1 ≤ i,j ≤ 10</div><p>La matrice binaire M décrit la configuration complète du réseau.</p></div>
+</div>
+<table><tr><th>Paramètre</th><th>Valeur / signification</th></tr><tr><td>N</td><td>10 — dimension de la grille</td></tr><tr><td>p</td><td>Probabilité d’ouverture</td></tr><tr><td>1 − p</td><td>Probabilité de blocage</td></tr><tr><td>Indépendance</td><td>Les états des cellules sont indépendants</td></tr></table><span class="num">21</span>
+</section>
+
+<section>
+<h2>Voisinage et condition de percolation</h2>
+<p>La connectivité est définie à partir du voisinage à quatre directions, appelé <b>voisinage de Von Neumann</b>.</p>
+<div class="grid2">
+<div class="card"><h3>Voisinage autorisé</h3><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;text-align:center;max-width:240px;margin:auto">
+<span></span><span class="tag">Haut</span><span></span><span class="tag">Gauche</span><span class="big">Cellule</span><span class="tag">Droite</span><span></span><span class="tag">Bas</span><span></span></div></div>
+<div class="card"><h3>Condition</h3><p>Il y a percolation s’il existe au moins un chemin constitué uniquement de cellules ouvertes reliant la première ligne à la dernière ligne.</p><p class="big">Les déplacements diagonaux ne sont pas autorisés.</p></div>
+</div><span class="num">22</span>
+</section>
+
+<section>
+<h2>Algorithme de détection : BFS</h2>
+<p><b>BFS (Breadth-First Search)</b>, ou parcours en largeur, explore les cellules accessibles à partir de la première ligne.</p>
+<div class="flow">
+<div><b>1</b>Générer la grille 10 × 10</div><div><b>2</b>Initialiser la file avec les cellules ouvertes de la ligne 1</div><div><b>3</b>Extraire une cellule et explorer ses voisins</div><div><b>4</b>Vérifier si la ligne 10 est atteinte</div>
+</div>
+<div class="grid2">
+<div class="card"><h3>Si la ligne 10 est atteinte</h3><p class="big">Percolation</p></div>
+<div class="card"><h3>Si la file devient vide</h3><p class="big">Pas de percolation</p></div>
+</div><span class="num">23</span>
+</section>
+
+<section>
+<h2>Implémentation en Python</h2>
+<p>Le programme génère une grille 10 × 10 pour chaque probabilité p, puis applique l’algorithme BFS.</p>
+<ol>
+<li><b>Initialisation :</b> création d’une grille 10 × 10.</li>
+<li><b>Génération aléatoire :</b> chaque cellule devient ouverte avec une probabilité p, ou bloquée avec une probabilité 1 − p.</li>
+<li><b>Application de BFS :</b> exploration des cellules voisines pour rechercher un chemin continu entre le haut et le bas.</li>
+<li><b>Détection :</b> vérification de l’existence d’un chemin connecté.</li>
+<li><b>Représentation :</b> affichage des résultats pour p = 0,2 ; 0,5 ; 0,7 ; 1.</li>
+</ol>
+<p class="small">Le programme permet de simuler le phénomène de percolation sur une grille carrée de dimension 10 × 10.</p><span class="num">24</span>
+</section>
+
+<section>
+<h2>Simulation numérique</h2>
+<div class="grid2">
+<div class="card"><h3>Pourquoi simuler ?</h3><p>Étudier l’influence de la probabilité d’ouverture des cellules sur la propagation d’un liquide dans un milieu poreux.</p><p>Déterminer si un chemin continu de cellules ouvertes existe entre le haut et le bas d’une grille 10 × 10.</p></div>
+<div class="card"><h3>Comment ?</h3><p>Créer une grille aléatoire, puis rechercher les chemins en partant des cellules ouvertes de la première ligne.</p><p>Explorer les quatre directions : haut, bas, gauche et droite.</p></div>
+</div>
+<p>Si au moins une cellule de la dernière ligne est atteinte, la percolation est réussie. Sinon, elle est impossible pour cette grille.</p>
+<p class="big">10 000 répétitions pour chaque valeur de p</p><span class="num">25</span>
+</section>
+
+<section>
+<h2>Paramètres et résultats de la simulation</h2>
+<div class="grid2">
+<div class="card"><h3>Paramètres</h3><ul><li>Dimension : 10 × 10</li><li>Nombre total de cellules : 100</li><li>Probabilités étudiées : 0,2 ; 0,5 ; 0,7 ; 1</li><li>Nombre de répétitions : 10 000</li><li>Cellule ouverte : 1</li><li>Cellule bloquée : 0</li><li>Connexions : 4 directions</li></ul></div>
+<div class="card"><h3>Fréquence de percolation</h3><div class="math">F(p) = (nombre de simulations réussies / nombre total de simulations) × 100</div></div>
+</div>
+<table><tr><th>Probabilité p</th><th>Simulations réussies</th><th>Fréquence</th></tr><tr><td>0,2</td><td>0</td><td>0 %</td></tr><tr><td>0,5</td><td>1 716</td><td>17,16 %</td></tr><tr><td>0,7</td><td>9 129</td><td>91,29 %</td></tr><tr><td>1</td><td>10 000</td><td>100 %</td></tr></table><span class="num">26</span>
+</section>
+
+<section>
+<h2>Représentation graphique des résultats</h2>
+<p>Les résultats montrent une augmentation de la fréquence de percolation lorsque la probabilité d’ouverture des cellules augmente.</p>
+<div class="card">
+<svg viewBox="0 0 640 300" role="img" aria-label="Graphique de fréquence de percolation selon p" style="width:100%;height:auto">
+<line x1="65" y1="245" x2="600" y2="245" stroke="#7b8293" stroke-width="2"/><line x1="65" y1="30" x2="65" y2="245" stroke="#7b8293" stroke-width="2"/>
+<g fill="#5b6780" font-size="15"><text x="18" y="250">0%</text><text x="10" y="145">50%</text><text x="10" y="35">100%</text><text x="60" y="272">0,2</text><text x="220" y="272">0,5</text><text x="380" y="272">0,7</text><text x="550" y="272">1</text><text x="300" y="298">Probabilité p</text></g>
+<polyline points="75,245 235,208 395,48 565,30" fill="none" stroke="#5142a5" stroke-width="5"/>
+<g fill="#d5a642" stroke="#5142a5" stroke-width="2"><circle cx="75" cy="245" r="7"/><circle cx="235" cy="208" r="7"/><circle cx="395" cy="48" r="7"/><circle cx="565" cy="30" r="7"/></g>
+</svg>
+<p class="small">Valeurs issues du tableau de simulation : 0 %, 17,16 %, 91,29 % et 100 %.</p>
+</div><span class="num">27</span>
+</section>
+
+<section>
+<h2>Bilan général</h2>
+<div class="grid3">
+<div class="card"><h3>Probabilité</h3><p>La probabilité de percolation augmente avec la probabilité d’ouverture des cellules.</p></div>
+<div class="card"><h3>Non-linéarité</h3><p>Cette augmentation n’est pas linéaire.</p></div>
+<div class="card"><h3>Connectivité</h3><p>Les connexions entre les cellules jouent un rôle essentiel.</p></div>
+</div>
+<p class="big">L’organisation spatiale influence la propagation.</p><span class="num">28</span>
+</section>
+
+<section>
+<h2>Conclusion</h2>
+<p>À travers cette simulation, nous avons étudié le modèle de percolation à l’aide d’une grille de 10 × 10 cases. Chaque case est ouverte avec une probabilité p et bloquée avec une probabilité 1 − p.</p>
+<p>Les résultats montrent que p joue un rôle important dans la propagation. Lorsque p augmente, le nombre de cases ouvertes augmente également, ce qui favorise la formation de chemins continus. À l’inverse, lorsque p diminue, les cases bloquées deviennent plus nombreuses et limitent la propagation.</p>
+<p>Les résultats peuvent varier d’une simulation à une autre, même lorsque les paramètres restent identiques. Cela illustre le caractère aléatoire des systèmes stochastiques.</p>
+<p class="big">Le modèle de percolation aide à comprendre comment un phénomène se propage dans un environnement aléatoire et comment les probabilités influencent son évolution.</p><span class="num">29</span>
+</section>
+
+<section class="cover" style="text-align:center">
+<div style="height:70px"></div><h1>Merci pour<br>votre attention</h1><p class="subtitle">Université Saad Dahleb – Blida 1 • 2026–2027</p><span class="num">30</span>
+</section>
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<script>
+Reveal.initialize({hash:true,slideNumber:true,controls:true,progress:true,center:false,transition:'slide',width:1280,height:720,margin:0.06});
+const broken=document.getElementById('broken'), continuous=document.getElementById('continuous');
+if(broken&&continuous){
+ const b=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99];
+ for(let i=0;i<100;i++){let x=document.createElement('span');x.className='cell '+((i%10===4||i%10===5)?'open':'blocked');if(i>=40&&i<50&&i%10!==4)x.className='cell open';broken.appendChild(x)}
+ for(let i=0;i<100;i++){let x=document.createElement('span');x.className='cell blocked';if(i%10===4)x.className='cell path';if(i===4||i===14||i===24||i===34||i===44||i===54||i===64||i===74||i===84||i===94)x.className='cell path';continuous.appendChild(x)}
+}
+</script>
+</body></html>
