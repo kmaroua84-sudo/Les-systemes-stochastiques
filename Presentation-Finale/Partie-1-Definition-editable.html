@@ -7,6 +7,34 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
 <style>
+ /* Global Animation */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal .slides section.present > * {
+    animation: fadeInUp 0.8s ease both;
+}
+
+.reveal .slides section.present > *:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.reveal .slides section.present > *:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.reveal .slides section.present > *:nth-child(4) {
+    animation-delay: 0.45s;
+}
 :root{--ink:#17233b;--muted:#5b6780;--violet:#5142a5;--violet2:#7768c9;--gold:#d5a642;--pale:#f2f0fb;--line:#e4e1f0}
 .reveal{font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
 .reveal .slides{text-align:left}
