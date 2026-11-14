@@ -26,26 +26,39 @@
 .reveal .slides section.present > * {
     animation: dramaticEntry 2s cubic-bezier(0.16, 1, 0.3, 1) both !important;
 }
- 
-@keyframes textReveal {
-    from {
+ mn9rch nb3tlc mdli 4ri9a nadjiha
+ماشي مشكل ❤️ نعطيك طريقة تخدم مباشرة مع Reveal.js، بلا ما تبعثيلي حتى كود.
+
+زيدي هذا في ملف CSS تاعك:
+
+
+/* TEXT ANIMATION */
+
+@keyframes letterReveal {
+    0% {
         opacity: 0;
-        transform: translateX(-100px);
-        filter: blur(10px);
-        letter-spacing: 15px;
+        transform: translateY(80px) rotateX(90deg);
+        filter: blur(12px);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0) rotateX(0);
         filter: blur(0);
-        letter-spacing: normal;
     }
 }
 
 .reveal .slides section.present h1,
 .reveal .slides section.present h2,
-.reveal .slides section.present p {
-    animation: textReveal 2s ease-out both !important;
+.reveal .slides section.present h3,
+.reveal .slides section.present p,
+.reveal .slides section.present li {
+    animation: letterReveal 1.8s ease-out both !important;
+}
+
+/* BIG TITLE EFFECT */
+
+.reveal .slides section.present h1 {
+    animation-duration: 2.5s !important;
 }
 :root{--ink:#17233b;--muted:#5b6780;--violet:#5142a5;--violet2:#7768c9;--gold:#d5a642;--pale:#f2f0fb;--line:#e4e1f0}
 .reveal{font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
